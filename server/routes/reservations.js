@@ -7,34 +7,38 @@ const Room = require('../models/Room'); // Import your Room model
 //Enable CORS
 router.use(cors());
 
-// Create a new reservation
 router.post('/create', async (req, res) => {
-    try {
-      const { guestName, checkInDate, checkOutDate, roomId } = req.body;
-      
-      // Verify if the roomId exists
-      const room = await Room.findById(roomId);
-  
-      if (!room) {
-        return res.status(400).json({ error: 'Invalid roomId' });
-      }
-  
-      // Create a new reservation document
-      const reservation = new Reservation({
-        guestName,
-        checkInDate,
-        checkOutDate,
-        roomId,
-      });
-  
-      // Save the reservation to the database
-      await reservation.save();
-  
-      res.status(201).json({ message: 'Reservation created successfully' });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal server error' });
+  try {
+    const { guestName, address, mobileNumber, age, occupation, checkInDate, checkOutDate, roomId, price } = req.body;
+
+    // Verify if the roomId exists
+    const room = await Room.findById(roomId);
+
+    if (!room) {
+      return res.status(400).json({ error: 'Invalid roomId' });
     }
+
+    // Create a new reservation document
+    const reservation = new Reservation({
+      guestName,
+      address,
+      mobileNumber,
+      age,
+      occupation,
+      checkInDate,
+      checkOutDate,
+      roomId,
+      price
+    });
+
+    // Save the reservation to the database
+    await reservation.save();
+
+    res.status(201).json({ message: 'Reservation created successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 router.get('/available-rooms', async (req, res) => {
