@@ -39,7 +39,7 @@ function AdminDashboard() {
     labels: ['Occupied', 'Available'],
     datasets: [
       {
-        data: [totalBookings, 100 - totalBookings],
+        data: [totalBookings, 68 - totalBookings],
         backgroundColor: ['#4299e1', '#f7fafc'],
       },
     ],
